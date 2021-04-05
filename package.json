@@ -1,0 +1,20 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@onflow/fcl": "0.0.67",
+    "@onflow/sdk": "0.0.44",
+    "@onflow/types": "0.0.4",
+    "dotenv": "^8.2.0",
+    "elliptic": "^6.5.4",
+    "express": "^4.17.1",
+    "sha3": "^2.1.4"
+  }
+}
