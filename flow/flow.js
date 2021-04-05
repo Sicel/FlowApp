@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 const e = require("express");
 dotenv.config();
 
-let accountAddr;
+const accountAddr = process.env.ACCOUNT_ADDRESS;
 const privKey = process.env.ACCOUNT_PRIVATE_KEY;
 const keyIdx = process.env.ACCOUNT_KEY_IDX;
 
@@ -157,8 +157,8 @@ async function getUser(address) {
 }
 
 exports.config =  async() => {
-    //fcl.config()
-    //.put("accessNode.api", "127.0.0.1:3569"); // Configure FCLs Access Node
+    fcl.config()
+    .put("accessNode.api", "127.0.0.1:3569"); // Configure FCLs Access Node
     //.put("challeng.handshake", process.env.WALLET_DISCOVERY);
 
     console.log(await fcl.config().get("accessNode.api"));
