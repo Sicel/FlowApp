@@ -3,6 +3,7 @@ const t = require("./flow/flowTypes.js");
 
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 300;
 
 let accountAddr;
 
@@ -49,6 +50,6 @@ app.post("/flow/transaction/", async(req, res) => {
     res.send(response);
 });
 
-app.listen(300, () => { 
+app.listen(PORT, () => { 
     console.log("-----------------------------------------\nWorking as intended");
 });
