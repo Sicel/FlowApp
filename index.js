@@ -41,6 +41,7 @@ app.post("/flow/transaction/", async(req, res) => {
 
     try {
         const user = await flow.getAuthorization(accountAddr);
+        console.log(user);
         response = await flow.sendTxReq(user, txReq);
     } catch (error) {
         response = error;
@@ -51,5 +52,6 @@ app.post("/flow/transaction/", async(req, res) => {
 });
 
 app.listen(PORT, () => { 
+    flow.config();
     console.log("-----------------------------------------\nWorking as intended");
 });

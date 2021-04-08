@@ -4,19 +4,20 @@ const t = require("./flowTypes.js");
 const ec = require("elliptic").ec;
 const sha3 = require("sha3");
 const dotenv = require("dotenv");
-const e = require("express");
 dotenv.config();
 
-const accountAddr = process.env.ACCOUNT_ADDRESS;
-const privKey = process.env.ACCOUNT_PRIVATE_KEY;
+//const accountAddr = process.env.ACCOUNT_ADDRESS;
+const privKey = process.env.ACCOUNT_PRIVATE_KEY || "bf9db4706c2fdb9011ee7e170ccac492f05427b96ab41d8bf2d8c58443704b76" // VSCode private key;
 const keyIdx = process.env.ACCOUNT_KEY_IDX;
+const accessNode = process.env.ACCESS_NODE;
 
 const EC = new ec("p256");
 
 // All taken from https://github.com/onflow/kitty-items/blob/master/kitty-items-js/src/services/flow.ts
 exports.getAuthorization = async (addr, account = {}) => {
-    //accountAddr = txReq.address;
-    const user = await getUser(addr);
+    const accountAddr = fcl.withPrefix("0x" + addr);
+    const user = await getUser(accountAddr);
+    console.log(user);
     //console.log(user);
     const key = user.account.keys[keyIdx];
     let sequenceNum;
@@ -153,12 +154,13 @@ function typeDictionary(dict) {
 }
 
 async function getUser(address) {
-    return await fcl.send([fcl.getAccount(address)]);
+    const response = await fcl.send([fcl.getAccount(address)]);
+    return response;
 }
 
 exports.config =  async() => {
     fcl.config()
-    .put("accessNode.api", "127.0.0.1:3569"); // Configure FCLs Access Node
+    .put("accessNode.api", accessNode); // Configure FCLs Access Node
     //.put("challeng.handshake", process.env.WALLET_DISCOVERY);
 
     console.log(await fcl.config().get("accessNode.api"));
