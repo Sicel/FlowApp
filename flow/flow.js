@@ -6,7 +6,7 @@ const sha3 = require("sha3");
 const dotenv = require("dotenv");
 dotenv.config();
 
-//const accountAddr = process.env.ACCOUNT_ADDRESS;
+const accountAddr = process.env.ACCOUNT_ADDRESS;
 const privKey = process.env.ACCOUNT_PRIVATE_KEY || "bf9db4706c2fdb9011ee7e170ccac492f05427b96ab41d8bf2d8c58443704b76" // VSCode private key;
 const keyIdx = process.env.ACCOUNT_KEY_IDX;
 const accessNode = process.env.ACCESS_NODE;
@@ -15,14 +15,12 @@ const EC = new ec("p256");
 
 // All taken from https://github.com/onflow/kitty-items/blob/master/kitty-items-js/src/services/flow.ts
 exports.getAuthorization = async (addr, account = {}) => {
-    const accountAddr = fcl.withPrefix("0x" + addr);
-    const user = await getUser(accountAddr);
+    addr = addr || accountAddr;
+    const user = await getUser(addr);
     console.log(user);
     //console.log(user);
     const key = user.account.keys[keyIdx];
     let sequenceNum;
-
-    //console.log("Key:" + key);
 
     if (Object.keys(account).length !== 0) {
         if (account.role.proposer) {
