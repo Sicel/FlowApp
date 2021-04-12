@@ -38,6 +38,7 @@ app.post("/flow/transaction/", async(req, res) => {
     let response;
     let txReq = req.body;
     accountAddr = txReq.address;
+    const to = txReq.to;
 
     try {
         const user = await flow.getAuthorization(accountAddr);
