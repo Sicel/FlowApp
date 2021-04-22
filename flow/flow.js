@@ -152,8 +152,7 @@ function typeDictionary(dict) {
 }
 
 async function getUser(address) {
-    const response = await fcl.send([fcl.getAccount(address)]);
-    return response;
+    return await fcl.send([fcl.getAccount(address)]);
 }
 
 exports.config =  async() => {
