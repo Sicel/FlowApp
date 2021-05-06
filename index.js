@@ -1,5 +1,6 @@
 const flow = require("./flow/flow.js");
 const t = require("./flow/flowTypes.js");
+const playerMarketDB = require("./db/Roguelike/database.js");
 
 const express = require("express");
 const app = express();
@@ -15,6 +16,10 @@ app.get('/', (req, res) => {
 
 app.get("/flow", (req, res) => {
     
+})
+
+app.get("/roguelike/market/", (req, res) => {
+    playerMarketDB.getMarketItems(res);
 })
 
 app.get("/flow/type/", (req, res) => {
@@ -55,4 +60,5 @@ app.post("/flow/transaction/", async(req, res) => {
 app.listen(PORT, () => { 
     flow.config();
     console.log("-----------------------------------------\nWorking as intended");
+    //playerMarketDB.init();
 });
