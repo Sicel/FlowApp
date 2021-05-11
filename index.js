@@ -15,7 +15,11 @@ app.get('/', (req, res) => {
 });
 
 app.get("/flow", (req, res) => {
-    
+    res.send("Connected to flow transaction client")
+})
+
+app.get("/roguelike/", (req, res) => {
+    res.send("Connected to Roguelike client")
 })
 
 app.get("/roguelike/market/", (req, res) => {
@@ -56,6 +60,22 @@ app.post("/flow/transaction/", async(req, res) => {
     console.log("---------------\nResponse:\n" + response);
     res.send(response);
 });
+
+app.post("/roguelike/market/add", (req, res) => {
+    console.log(req.body);
+    playerMarketDB.addMarketItem(req.body);
+})
+
+app.post("/roguelike/market/remove", (req, res) => {
+    let id;
+    if (req.body.id === undefined) {
+        id = req.query.id;
+    } else {
+        id = req.body.id;
+    }
+    console.log(id);
+    playerMarketDB.removeMarketItem(id);
+})
 
 app.listen(PORT, () => { 
     flow.config();
