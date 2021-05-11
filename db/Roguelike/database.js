@@ -9,7 +9,7 @@ exports.getMarketItems = (res) => {
     let items = [];
     playerMaket.once('value', (snapshot) => {
         snapshot.forEach(item => {
-            items.push(item);
+            items.push(item.val());
         });
 
         res.send(items);
@@ -17,7 +17,7 @@ exports.getMarketItems = (res) => {
 }
 
 exports.addMarketItem = (item) => {
-    db.ref("playerMarket/" + item.playerID).set(item);
+    db.ref("playerMarket/" + item.id).set(item);
 }
 
 exports.removeMarketItem = (id) => {
